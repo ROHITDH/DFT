@@ -3,8 +3,6 @@
 <head>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://rawgit.com/vignesh4a/DFT_WEB/main/calc.css">
-    <!--<script src="https://rawgit.com/vignesh4a/DFT_WEB.github.io/main/a.js"></script>-->
     <title>Vignesh</title>
 </head>
 <body style="text-align: center;">
@@ -12,12 +10,89 @@
    <h1>
        DFT Calculator
    </h1>
-<div class="area">
+
     <input id="tx" type="text"><br><br>
     <button type="button" class="btn" onclick="hello()">Solve</button>
     <P id="o"></P>
-</div>
+
      
 </body>
 
+<style>
+    #tx{
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    width: 540px;
+    height: 40px;
+    border-radius: 0px;;
+}
+.btn{
+    font-family: 'Roboto', sans-serif;
+    width: 200px;
+    height: 40px;
+    border-radius: 0px;
+    font-size: 25px;
+}
+#o{
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif; 
+}
+body{
+    font-size: 20px;
+    font-family:'Roboto', sans-serif;
+}
+</style>
+
+<script>
+    
+function hello(){
+    var x = document.getElementById("tx").value;
+    var res = x.split(",");
+    //alert(res);
+    console.log("res ",res);
+    var x1 =  intt(res);
+    var x2 = DFT(x1);
+    console.log("X1 ",x1);
+    console.log("X2 ",x2);
+    document.getElementById("o").textContent =x2;
+}
+
+function intt(a)
+{
+    var x=[];
+    var temp=0;
+
+    for (var i=0;i<a.length;i++) {
+        temp = Number(a[i])
+        if(isNaN(temp)) return [NaN];
+        x.push(temp);
+    }
+    return x;
+}
+
+function DFT(xn)
+{
+    if(isNaN(xn[0])) return "Invalid";
+    var k = 0;
+    var n = 0;
+    const N = xn.length;
+    var X = [];
+    var temp1 = 0;
+    var temp2 = 0;
+
+    for(k = 0; k < N;k++)
+    {
+        temp1 = 0;
+        temp2 = 0;
+
+        for(n = 0;n<N;n++)
+        {
+          temp1 += xn[n]*(Math.cos((-2*Math.PI*k*n)/(N)));
+          temp2 += xn[n]*(Math.sin((-2*Math.PI*k*n)/(N)));
+        }
+        X.push(String((Math.round(temp1*1000)/1000))+((temp2<0)?"-":"+")+String(Math.abs((Math.round(temp2*1000)/1000)))+"i"+"\t");
+    }
+    return X;
+}
+</script>
 </html>
