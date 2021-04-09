@@ -13,7 +13,7 @@
    </h1>
 
     <input id="tx" type="text"><br><br>
-    <button type="button" class="btn" onclick="hello()">Solve</button>
+    <button type="button" class="btn" onclick="calculateDFT()">Solve</button>
     <P id="o"></P>
 
      
@@ -52,34 +52,22 @@ body{
 
 <script>
     
-function hello(){
+function calculateDFT(){
+    <!-- get the user text -->
     var x = document.getElementById("tx").value;
-    var res = x.split(",");
+    <!-- split to get individual text component -->
+    var res = x.split(",").map(a=>+a);
     //alert(res);
     console.log("res ",res);
-    var x1 =  intt(res);
-    var x2 = DFT(x1);
-    console.log("X1 ",x1);
+    var x2 = DFT(res);
     console.log("X2 ",x2);
     document.getElementById("o").textContent =x2;
 }
 
-function intt(a)
-{
-    var x=[];
-    var temp=0;
-
-    for (var i=0;i<a.length;i++) {
-        temp = Number(a[i])
-        if(isNaN(temp)) return [NaN];
-        x.push(temp);
-    }
-    return x;
-}
 
 function DFT(xn)
 {
-    if(isNaN(xn[0])) return "Invalid";
+    if(Array.prototype.slice.call(xn).some(isNaN)) return "Invalid";
     var k = 0;
     var n = 0;
     const N = xn.length;
